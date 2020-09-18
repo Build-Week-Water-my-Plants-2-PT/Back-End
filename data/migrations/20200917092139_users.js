@@ -3,7 +3,7 @@ exports.up = function(knex) {
     tbl.increments();
     tbl.string('username', 128).notNullable().unique();
     tbl.string('password', 128).notNullable()
-    tbl.integer('phone_number', 10).notNullable().unique();
+    tbl.integer('phone_number', 10).notNullable();
   })
 }
 

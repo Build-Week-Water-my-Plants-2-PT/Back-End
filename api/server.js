@@ -1,4 +1,3 @@
-
 const express = require("express");
 const cors = require('cors');
 const helmet = require('helmet');
@@ -8,6 +7,7 @@ const server = express();
 
 const authRouter = require('../router/authRouter');
 const plantsRouter = require('../router/plantsRouter');
+const userRouter = require('../router/userRouter');
 
 const {restrict} = require('../middleware/restricted')
 const cookieParser = require('cookie-parser');
@@ -19,6 +19,8 @@ server.use(cookieParser());
 
 server.use('/api/auth', authRouter);
 //server.use('/api/plants', restrict(), plantsRouter);
+server.use('/api/plants', plantsRouter)
+server.use('/users', userRouter)
 
 
 server.get('/',(req,res)=>{

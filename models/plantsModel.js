@@ -1,4 +1,4 @@
-//const db = require('')
+const db = require('../data/config')
 
 const findPlants = () => {
     return db('plants').select('id','nickname', 'species', 'h2oFrequency', 'user_id' )
@@ -31,4 +31,6 @@ module.exports = {
     findPlants,
     findPlantsByID,
     addPlant,
+    updatePlant,
+    removePlant
 }

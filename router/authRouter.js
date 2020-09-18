@@ -6,28 +6,33 @@ const userDB = require("../models/userModels");
 
 const router = express.Router();
 
-router.post("/register", async (req, res) => {
+router.post("/register", (req, res) => {
   try {
-    const existingUser = await userDB.findByUsername(req.body.username);
-    //console.log(existingUser);
-
-    if (existingUser) {
-      return res
-        .status(409)
-        .json({ message: "A user with that username already exist" });
-    } else {
+    // const existingUser = await userDB.findByUsername(req.body.username);
+    // //console.log(existingUser);
+    
+    // if (existingUser) {
+    //   return res
+    //     .status(409)
+    //     .json({ message: "A user with that username already exist" });
+    // } else {
       const password = bcrypt.hashSync(
-        req.body.password,
-        parseInt(process.env.SALT_ROUNDS, 10)
+        req.body.password, 10
       );
       const newUser = {
         username: req.body.username,
         password,
+        phone_number: req.body.phone_number,
       };
-
-      const { password: _discardPassword, ...user } = await userDB.addUser(newUser);
-      res.status(201).json(user);
-    }
+     
+      userDB.addUser(newUser)
+      .then(user => {
+        res.status(201).json(user);
+      }) .catch (err => {
+        console.log(err)
+      })
+      
+    
   } catch (err) {
     //console.error(err);
     res.status(500).json({
@@ -39,7 +44,7 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try { 
-    const { username, password } = req.body;
+    const { username, password, phone_number } = req.body;
     
     if (!username || !password) {
       //checking if username and password is valid
@@ -67,5 +72,6 @@ router.post("/login", async (req, res) => {
     });
   }
 });
+
 
 module.exports = router;

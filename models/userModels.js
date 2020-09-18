@@ -1,4 +1,4 @@
-// const db = ('')
+const db = require('../data/config')
 
 const find = () => {
     return db('users').select("id", "username", "password", "phone_number")
@@ -24,7 +24,7 @@ const findByID = async (id) => {
       .then(([id]) => findByID(id));
   };
 
-  const updateUser = (id, user) => {
+  const update = (id, user) => {
       return db('users')
         .where({id})
         .update(user)

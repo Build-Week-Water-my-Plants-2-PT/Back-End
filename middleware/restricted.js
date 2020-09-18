@@ -30,6 +30,5 @@ function restrict() {
   }
 
 
-module.exports = {
-  restrict,
-}
+
+module.exports =  restrict;

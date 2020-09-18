@@ -1,4 +1,7 @@
-function validateUserId() {
+const db = require('../data/config');
+
+
+function validateUserId(id) {
   return async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -18,6 +21,5 @@ function validateUserId() {
   };
 }
 
-module.exports = {
-  validateUserId
-}
+
+module.exports = validateUserId;

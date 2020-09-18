@@ -1,12 +1,12 @@
 const db = require('../data/config')
 
-// const findPlants = () => {
-//     return db('plants').select('id','nickname', 'species', 'h2oFrequency', 'user_id' )
-// }
+const findPlants = () => {
+    return db('plants').select('id','nickname', 'species', 'h2oFrequency', 'user_id' )
+}
 
 
-function findPlantByID(plant_id) {
-    return db("plants").where({ plant_id }).first();
+function findPlantByID(id) {
+    return db("plants").where({ id }).first();
   }
 
 
@@ -23,28 +23,27 @@ function findPlantsByUserID(user_id) {
       );
   }
 
-
- function addPlant(plant) {
-    const [id] = db("plants").insert(plant);
-    return findPlantByID(plant_id);
+  async function addPlant(plant) {
+    const [id] = await db("plants").insert(plant);
+  
+    return findPlantByID(id);
   }
 
-
-const updatePlant = (plant_id, plant) => {
+const updatePlant = (id, plant) => {
     return db('plants')
-        .where({plant_id})
+        .where({id})
         .update(plant);
 }
 
 
-const removePlant = (plant_id) => {
+const removePlant = (id) => {
     return db('plants')
-        .where('plant_id', plant_id)
+        .where('id', id)
         .del();
 }
 
 module.exports = {
-    // findPlants,
+    findPlants,
     findPlantsByUserID,
     findPlantByID,
     addPlant,

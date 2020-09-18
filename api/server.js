@@ -19,7 +19,7 @@ server.use(cookieParser());
 
 server.use('/api/auth', authRouter);
 //server.use('/api/plants', restrict(), plantsRouter);
-server.use(plantRouter);
+server.use('/api/plants', plantsRouter);
 server.use('/users', userRouter)
 
 

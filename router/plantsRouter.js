@@ -1,26 +1,35 @@
+const express = require("express");
 const router = require("express").Router();
 const Plants = require("../models/plantsModel");
 const restrict = require("../middleware/restricted");
-const validateUserId = require("../middleware/validateUserId");
+const validateUserId = require("../middleware/validateUserId")
+const validatePlantData = require("../middleware/validatePlantData")
+
+const db = require("../data/config")
 
 // Get All of a specific users plants
 
-router.get("/users/:id/plants", validateUserId(), (req, res) => {
-  Plants.findPlants()
-    .then((plants) => {
-      res.status(200).json(plants);
-    })
-    .catch((err) => {
-      res.status(500).json({ error: "Counld not retrive plants" });
-    });
-});
+router.get(
+  "/users/:id/plants",
+  validateUserId(),
+  restrict(),
+  async (req, res, next) => {
+    try {
+      const plants = await Plants.findPlantsByUserID(req.params.id);
+      res.json(plants);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
-// Get an individual plant
 
-router.get("/plants/:plant_id", (req, res, next) => {
-  const { plant_id } = req.params;
+// Get an individual plant by plant id
 
-  Plants.findPlantsByID(plant_id)
+router.get("/:id",restrict(), (req, res, next) => {
+  const { id } = req.params;
+
+  Plants.findPlantByID(id)
     .then((plants) => {
       res.status(200).json(plants);
     })
@@ -31,50 +40,48 @@ router.get("/plants/:plant_id", (req, res, next) => {
     });
 });
 
-// Add a new Plant
+// Add a new Plant by user id
 
-router.post("/users/:id/plants", validateUserId(), async (req, res, next) => {
-  try {
-    const newPlant = req.body;
-    newPlant.user_id = req.params.id;
-    Plants.addPlant(newPlant);
-    res.status(200).json(newPlant);
-  } catch (err) {
-    res.status(500).json({ message: "Failed to add new plant." });
+router.post("/",  (req, res) => {
+  let plant = req.body;
+  const { nickname } = req.body;
+  if (!nickname) {
+    return res.status(400).json({ message: "Please provide a plant name." });
   }
+  Plants.addPlant(plant)
+    .then(plant => {
+      return res.status(201).json(plant);
+    })
+    .catch(err => res.status(500).json(err));
 });
 
-// Update an existing Plant
+// Update an existing Plant by plant id
 
-router.put("/plants/plant_id", (req, res, next) => {
+router.put('/:id', restrict(), (req, res) => {
   const id = req.params.id;
   const changes = req.body;
-  const updatedPlant = { ...plant, id };
+  const updatedPlant = { ...changes, id };
 
-  Plants.findPlantByID(plant_id)
-    .then((plant) => {
-      if (plant) {
-        Plants.updatePlant(changes, plant_id).then((updatedPlant) => {
-          res.status(201).json(updatedPlant);
-        });
-      } else {
-        res.status(404).json({ message: "Couldn't find your plant" });
-      }
+  Plants.updatePlant(id, changes)
+    .then(editPlant => {
+      console.log(editPlant);
+      res.status(200).json(updatedPlant);
     })
-    .catch((error) => {
-      res.status(500).json({ error: "could not update plant information" });
-    });
-});
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({ error: 'could not change plant information' });
+    })
+})
 
 // Delete an existing plant 
 
-router.delete("/plants/:plant_id", (req, res) => {
-  const plant_id = req.params.plant_id;
+router.delete("/:id", (req, res) => {
+  const id = req.params.id;
 
-  Plants.findPlantByID(plant_id)
+  Plants.findPlantByID(id)
     .then((plant) => {
       if (plant) {
-        Plants.removePlant(plant_id)
+        Plants.removePlant(id)
           .then((deletedPlant) => {
             res.status(200).json({ removed: deletedPlant });
           })
@@ -90,6 +97,7 @@ router.delete("/plants/:plant_id", (req, res) => {
       res.status(500).json({ error: "could not delelte the plant" });
     });
 });
+
 
 // router.POST('/plants', (req,res) => {
 //     //create plant { id:integer, nickname:string, species:string, h20frequency: ????}

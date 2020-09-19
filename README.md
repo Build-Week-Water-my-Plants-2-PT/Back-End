@@ -19,3 +19,12 @@ BODY
     "username": "Homer Simpson",
     "password": "passwordforhomer"
 }
+
+
+Fake user data: 
+    { username:'Homer Simpson', password:passwordforhomer', phone_number:1234567890},
+      { username:'Marge Simpson', password: passwordformarge, phone_number:2345678901},
+      { username:'Bart Simpson', password:passwordforbart, phone_number:3456789012},
+      { username:'Lisa Simpson', password:passwordforlisa phone_number:4567890123},
+      { username:'Mr.Burns', password: passwordforburns, phone_number:5678901234},
+      { username:'Ned Flanders', password:passwordforned', phone_number:6789012345}

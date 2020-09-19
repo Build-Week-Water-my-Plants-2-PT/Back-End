@@ -14,6 +14,7 @@ const cookieParser = require('cookie-parser');
 
 server.use(helmet());
 server.use(cors());
+server.options('*', cors());
 server.use(express.json());
 server.use(cookieParser());
 

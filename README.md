@@ -51,8 +51,8 @@
   	  }
   
   	
-    	POST add a new plant by user id
-    	http://localhost:5000/api/plants
+    POST add a new plant by user id
+    http://localhost:5000/api/plants
 	
   	BODY:
 	{

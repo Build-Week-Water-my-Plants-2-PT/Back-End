@@ -44,6 +44,19 @@ Fake user data:
     GET plants by plant id
     https://water-my-plants-365.herokuapp.com/api/plants/:id
     
+      PUT update an existing plant by plant id
+  https://water-my-plants-365.herokuapp.com/api/plants/:id
+  
+  BODY
+  
+  {
+  "id": 1,
+  "nickname": "American sheepbush",
+  "species": "Pentzia incana",
+  "H2oFrequency": "8 days",
+  "user_id": 1
+}
+  
     
     POST add a new plant by user id
     
@@ -58,16 +71,5 @@ Fake user data:
   DELETE a plant by plant id
   https://water-my-plants-365.herokuapp.com/api/plants/:id
   
-  PUT update an existing plant by plant id
-  https://water-my-plants-365.herokuapp.com/api/plants/:id
-  
-  BODY
-  {
-  "id": 1,
-  "nickname": "American sheepbush",
-  "species": "Pentzia incana",
-  "H2oFrequency": "8 days",
-  "user_id": 1
-}
-  
+
     

@@ -1,5 +1,6 @@
 # Back-End [Unit 4]
-
+	Heroku: https://water-my-plants-365.herokuapp.com/
+	
 	POST Register User
 	https://water-my-plants-365.herokuapp.com/api/auth/register
 

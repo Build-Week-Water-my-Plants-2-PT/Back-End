@@ -53,7 +53,7 @@
   
   	
     POST add a new plant by user id
-    http://localhost:5000/api/plants
+    https://water-my-plants-365.herokuapp.com//api/plants
 	
   	BODY:
 	{

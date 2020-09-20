@@ -7,7 +7,7 @@ BODY
 {
     "username": "Homer Simpson",
     "password": "passwordforhomer",
-    "phoneNumber": "1234567890"
+    "phone_number": "1234567890"
 }
 
 

@@ -6,7 +6,7 @@ const userDB = require("../models/userModels");
 
 const router = express.Router();
 
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     // const existingUser = await userDB.findByUsername(req.body.username);
     // //console.log(existingUser);
@@ -16,7 +16,7 @@ router.post("/register", (req, res) => {
     //     .status(409)
     //     .json({ message: "A user with that username already exist" });
     // } else {
-      const password = bcrypt.hashSync(
+      const password = await bcrypt.hashSync(
         req.body.password, 10
       );
       const newUser = {
@@ -27,7 +27,7 @@ router.post("/register", (req, res) => {
      
       userDB.addUser(newUser)
       .then(user => {
-        res.status(201).json(user, {message:`Welcome ${newUser}`});
+        res.status(200).json({message:`Welcome ${newUser.username}`});
       }) .catch (err => {
         console.log(err)
       })
@@ -42,17 +42,51 @@ router.post("/register", (req, res) => {
   }
 });
 
+// router.post("/login", async (req, res) => {
+//   try { 
+//     const { username, password, phone_number } = req.body;
+    
+//     if (!username || !password) {
+//       //checking if username and password is valid
+//       return res
+//         .status(400)
+//         .json({ message: "We require username and password on the body" });
+//     }
+    
+//     const user = await userDB.findBy({username}).first();
+//     //console.log(user)
+//     const validPassword = await bcrypt.compare(password, user.password);
+    
+//     if (!validPassword) { 
+//       //validating password
+//       return res.status(401).json({ message: "Invalid credentials" });
+//     } else {
+//       return res.status(200).json({message: `${user.username} logged in`})
+
+//     const token = JWT.sign({userID:user.id,}, process.env.SECRET);
+//     res.cookie("token", token)
+//     res.json({ token });
+
+//     }
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({
+//       errorMessage:
+//         "Something went horribly horribly wrong. You should not do that again...",
+//     });
+//   }
+// });
+
+
 router.post("/login", async (req, res) => {
   try { 
     const { username, password, phone_number } = req.body;
-    
+
     if (!username || !password) {
       //checking if username and password is valid
       return res
         .status(400)
         .json({ message: "We require username and password on the body" });
-    } else {
-      res.status(200).json({message:`${username} logged in`})
     }
     
     const user = await userDB.findBy({username}).first();
@@ -65,7 +99,10 @@ router.post("/login", async (req, res) => {
     }
     const token = JWT.sign({userID:user.id,}, process.env.SECRET);
     res.cookie("token", token)
-    res.json({ token });
+    res.json({ 
+      message: `Welcome ${user.username}!`,
+      token: token
+   });
   } catch (err) {
     console.error(err);
     res.status(500).json({
@@ -74,6 +111,8 @@ router.post("/login", async (req, res) => {
     });
   }
 });
+
+
 
 
 module.exports = router;

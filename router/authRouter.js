@@ -27,7 +27,7 @@ router.post("/register", (req, res) => {
      
       userDB.addUser(newUser)
       .then(user => {
-        res.status(201).json(user);
+        res.status(201).json(user, message:`Welcome ${newUser}`);
       }) .catch (err => {
         console.log(err)
       })
@@ -51,6 +51,8 @@ router.post("/login", async (req, res) => {
       return res
         .status(400)
         .json({ message: "We require username and password on the body" });
+    } else {
+      res.status(200).json({message:`${username} logged in`})
     }
     
     const user = await userDB.findBy({username}).first();

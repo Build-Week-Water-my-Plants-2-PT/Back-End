@@ -13,7 +13,7 @@ const { restrict } = require("../middleware/restricted");
 const cookieParser = require("cookie-parser");
 
 server.use(helmet());
-const whitelist = ["http://localhost:3000/"];
+const whitelist = ["http://localhost:3000/","https://water-my-plants-front-end.vercel.app"];
 server.use(
   cors({
     credentials: true,
@@ -24,6 +24,8 @@ server.use(
     },
   })
 );
+
+
 server.use(express.json());
 server.use(cookieParser());
 

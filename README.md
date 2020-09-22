@@ -70,4 +70,4 @@
   
 
     	PUT update the user's phone_number and password
-	http://localhost:5000/api/auth/users/:id
+	https://water-my-plants-365.herokuapp.com/api/auth/users/:id

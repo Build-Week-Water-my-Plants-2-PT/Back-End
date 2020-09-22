@@ -69,5 +69,5 @@
 
   
 
-    	PUT update the user's phone_number and password
+    PUT update the user's phone_number and password
 	https://water-my-plants-365.herokuapp.com/api/auth/users/:id

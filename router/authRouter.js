@@ -31,7 +31,7 @@ router.post("/register", async (req, res) => {
         .then((user) => {
           res
             .status(201)
-            .json({ message: `Welcome ${newUser.id} ${newUser.username}` });
+            .json(newUser);
         })
         .catch((err) => {
           console.log(err);

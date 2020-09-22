@@ -69,4 +69,5 @@
 
   
 
-    
+    	PUT update the user's phone_number and password
+	http://localhost:5000/api/auth/users/:id

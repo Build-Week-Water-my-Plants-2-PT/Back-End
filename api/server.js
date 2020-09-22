@@ -15,7 +15,7 @@ const cookieParser = require('cookie-parser');
 server.use(helmet());
 server.use(cors({
   credentials: true,
-  origin: ['https://water-my-plants-front-end.vercel.app/', 'http://localhost:3000']
+  origin: ['https://water-my-plants-front-end.vercel.app', 'http://localhost:3000']
 }));
 server.use(express.json());
 server.use(cookieParser());

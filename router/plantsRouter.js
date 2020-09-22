@@ -7,6 +7,17 @@ const validatePlantData = require("../middleware/validatePlantData")
 
 const db = require("../data/config")
 
+// Get all the plants
+router.get('/', restrict(), (req, res) => {
+  Plants.findPlants()
+    .then(plants => {
+      res.status(200).json(plants);
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'list of plants is not received' })
+    })
+})
+
 // Get All of a specific users plants
 
 router.get(

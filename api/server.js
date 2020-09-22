@@ -1,34 +1,39 @@
 const express = require("express");
-const cors = require('cors');
-const helmet = require('helmet');
-const dotenv = require('dotenv');
-dotenv.config()
+const cors = require("cors");
+const helmet = require("helmet");
+const dotenv = require("dotenv");
+dotenv.config();
 const server = express();
 
-const authRouter = require('../router/authRouter');
-const plantsRouter = require('../router/plantsRouter');
-const userRouter = require('../router/userRouter');
+const authRouter = require("../router/authRouter");
+const plantsRouter = require("../router/plantsRouter");
+const userRouter = require("../router/userRouter");
 
-const {restrict} = require('../middleware/restricted')
-const cookieParser = require('cookie-parser');
+const { restrict } = require("../middleware/restricted");
+const cookieParser = require("cookie-parser");
 
 server.use(helmet());
-server.use(cors({
-  credentials: true,
-  origin: ['https://water-my-plants-front-end.vercel.app', 'http://localhost:3000']
-}));
+const whitelist = ["http://localhost:3000/"];
+server.use(
+  cors({
+    credentials: true,
+
+    origin: (origin, callback) => {
+      if (whitelist.indexOf(origin) !== -1) callback(null, {origin: true});
+      else callback(null);
+    },
+  })
+);
 server.use(express.json());
 server.use(cookieParser());
 
-server.use('/api/auth', authRouter);
+server.use("/api/auth", authRouter);
 //server.use('/api/plants', restrict(), plantsRouter);
-server.use('/api/plants', plantsRouter);
-server.use('/users', userRouter)
+server.use("/api/plants", plantsRouter);
+server.use("/users", userRouter);
 
+server.get("/", (req, res) => {
+  res.status(200).json({ message: "Welcome to Water My Plants" });
+});
 
-
-server.get('/',(req,res)=>{
-  res.status(200).json({message:"Welcome to Water My Plants"})
-})
-
-module.exports = server
+module.exports = server;

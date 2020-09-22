@@ -20,12 +20,7 @@ const whitelist = [
 server.use(
   cors({
     credentials: true,
-
-    origin: "https://water-my-plants-front-end.vercel.app",
-    // origin: (origin, callback) => {
-    //   if (whitelist.indexOf(origin) !== -1) callback(null, {origin: true});
-    //   else callback(null);
-    // },
+    origin: whitelist
   })
 );
 

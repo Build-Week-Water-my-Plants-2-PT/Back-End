@@ -27,7 +27,7 @@ router.post("/register", async (req, res) => {
      
       userDB.addUser(newUser)
       .then(user => {
-        res.status(200).json({message:`Welcome ${newUser.username}`});
+        res.status(200).json({message:`Welcome ${newUser.id} ${newUser.username}`});
       }) .catch (err => {
         console.log(err)
       })
@@ -100,7 +100,7 @@ router.post("/login", async (req, res) => {
     const token = JWT.sign({userID:user.id,}, process.env.SECRET);
     res.cookie("token", token)
     res.json({ 
-      message: `Welcome ${user.username}!`,
+      message: `Welcome ${user.id} ${user.username}!`,
       token: token
    });
   } catch (err) {

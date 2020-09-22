@@ -26,7 +26,7 @@ router.get(
 
 // Get an individual plant by plant id
 
-router.get("/:id",restrict(), (req, res, next) => {
+router.get("/:id"/*,restrict()*/, (req, res, next) => {
   const { id } = req.params;
 
   Plants.findPlantByID(id)
@@ -57,7 +57,7 @@ router.post("/",  (req, res) => {
 
 // Update an existing Plant by plant id
 
-router.put('/:id', restrict(), (req, res) => {
+router.put('/:id'/*, restrict()*/, (req, res) => {
   const id = req.params.id;
   const changes = req.body;
   const updatedPlant = { ...changes, id };

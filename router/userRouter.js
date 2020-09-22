@@ -12,7 +12,11 @@ router.put("/users/:id", (req,res) => {
     
     Users.update(id, user)
     .then(editedUser => {
-        
+        res.status(200).json(updatedUser);
+    })
+    .catch(error => {
+        console.log(error)
+        res.status(500).json({error:'Unable to update user information'});
     })
 });
   

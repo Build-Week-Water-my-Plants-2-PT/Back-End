@@ -13,18 +13,21 @@ const { restrict } = require("../middleware/restricted");
 const cookieParser = require("cookie-parser");
 
 server.use(helmet());
-const whitelist = ["http://localhost:3000/","https://water-my-plants-front-end.vercel.app"];
+const whitelist = [
+  "http://localhost:3000/",
+  "https://water-my-plants-front-end.vercel.app",
+];
 server.use(
   cors({
     credentials: true,
 
-    origin: (origin, callback) => {
-      if (whitelist.indexOf(origin) !== -1) callback(null, {origin: true});
-      else callback(null);
-    },
+    origin: "https://water-my-plants-front-end.vercel.app",
+    // origin: (origin, callback) => {
+    //   if (whitelist.indexOf(origin) !== -1) callback(null, {origin: true});
+    //   else callback(null);
+    // },
   })
 );
-
 
 server.use(express.json());
 server.use(cookieParser());

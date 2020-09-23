@@ -9,7 +9,7 @@
 	Send the request.
 	You Should get the message "Welcome to Water My Plants".
 
-	Endpoints for Users
+		Endpoints for Users
 	
 	POST Register User
 	https://water-my-plants-365.herokuapp.com/api/auth/register

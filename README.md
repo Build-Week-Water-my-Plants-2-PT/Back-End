@@ -1,5 +1,14 @@
 # Back-End [Unit 4]
-	Heroku: https://water-my-plants-365.herokuapp.com/
+
+	Requirements: Insomnia
+	Install Insomnia
+	Create a "New Request".
+	Select a "GET" request for now.
+	Use localhost:5000 for the address.
+	If you are using Heroku, use this link for the address  - "https://water-my-plants-365.herokuapp.com/".
+	Send the request.
+	You Should get the message "Welcome to Water My Plants".
+
 	
 	POST Register User
 	https://water-my-plants-365.herokuapp.com/api/auth/register

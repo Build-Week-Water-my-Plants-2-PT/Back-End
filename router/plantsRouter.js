@@ -8,7 +8,7 @@ const validatePlantData = require("../middleware/validatePlantData")
 const db = require("../data/config")
 
 // Get all the plants
-router.get('/', restrict(), (req, res) => {
+router.get('/',  (req, res) => {
   Plants.findPlants()
     .then(plants => {
       res.status(200).json(plants);

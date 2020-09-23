@@ -21,7 +21,9 @@ const findByID = async (id) => {
   const addUser = async (user) => {
     return await db('users')
       .insert(user, 'id')
-      .then(([id]) => findByID(id));
+      .then(ids => {
+        return findByID(ids[0])
+      });
   };
 
   const update = (id, user) => {
@@ -36,4 +38,5 @@ module.exports = {
     findByUsername,
     findBy,
     addUser,
+    update,
 }

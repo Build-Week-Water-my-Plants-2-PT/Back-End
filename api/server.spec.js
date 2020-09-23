@@ -3,6 +3,8 @@ const server = require("./server");
 const Users = require("../models/userModels");
 const db = require("../data/config");
 const { intersect } = require("../data/config");
+const supertest = require("supertest");
+const restict = require("../middleware/restricted")
 
 
 
@@ -13,6 +15,14 @@ describe('server.js', () => {
     await db('users').truncate(); 
   })
   
+  // TEST SERVER
+  test("get /", async()=>{
+    const res = await supertest(server).get("/");
+    expect(res.statusCode).toBe(200);
+    expect(res.type).toBe("application/json");
+    expect(res.body.message).toMatch("Welcome to Water My Plants")
+  })
+
   //  REGISTER
 
   describe('POST /api/auth/register', () => {
@@ -77,45 +87,45 @@ describe('server.js', () => {
   
   //GET PLANTS
   
-  // describe('GET /api/plants', () => {
-  //   it('Receive a list of plants', () => {
-  //     return request(server).get('/api/plants')
-  //       .then(res => {
-  //         expect(res.status).toBe(200);
-  //       })
-  //   })
-  //   it('return JSON', async () => {
-  //     return request(server).get('/api/plants')
-  //       .then(res => {
-  //         expect(res.type).toMatch(/json/i)
-  //       })
-  //   })
-  //   it('list of plants on successful login with token', async () => {
-  //     res = await request(server)
-  //       .post('/api/auth/register')
-  //       .send({
-  //         username: 'student1',
-  //         password: 'password1',
-  //         phone_number: '1234567891'
-  //       });
-  //     expect(res.status).toEqual(201);
-  //     res = await request(server)
-  //       .post('/api/auth/login')
-  //       .send({
-  //         username: 'student1',
-  //         password: 'password1',
-  //         phone_number: '1234567891'
-  //       });
-  //     expect(res.status).toEqual(200);
-  //     const token = res.body.token;
-  //     expect(token.length).toBeGreaterThan(20);
-  //     res = await request(server)
-  //       .get('/api/plants')
-  //       .set({ authorization: token, Accept: 'application/json' });
-  //     expect(res.body).toBeInstanceOf(Object);
-  //     expect(res.status).toBe(200);
-  //   })
-  // })
+  describe('GET /api/plants', () => {
+    it('Receive a list of plants', () => {
+      return request(server).get('/api/plants')
+        .then(res => {
+          expect(res.status).toBe(200);
+        })
+    })
+    it('return JSON', async () => {
+      return request(server).get('/api/plants')
+        .then(res => {
+          expect(res.type).toMatch(/json/i)
+        })
+    })
+    it('list of plants on successful login with token', async () => {
+      res = await request(server)
+        .post('/api/auth/register')
+        .send({
+          username: 'student1',
+          password: 'password1',
+          phone_number: '1234567891'
+        });
+      expect(res.status).toEqual(201);
+      res = await request(server)
+        .post('/api/auth/login')
+        .send({
+          username: 'student1',
+          password: 'password1',
+          phone_number: '1234567891'
+        });
+      expect(res.status).toEqual(200);
+      const token = res.body.token;
+      expect(token.length).toBeGreaterThan(20);
+      res = await request(server)
+        .get('/api/plants')
+        .set({ authorization: token, Accept: 'application/json' });
+      expect(res.body).toBeInstanceOf(Object);
+      expect(res.status).toBe(200);
+    })
+  })
 })
 
 

@@ -1,10 +1,10 @@
 const express = require("express")
 const Users = require("../models/userModels");
-const {restrict} = require("../middleware/restricted");
+// const {restrict} = require("../middleware/restricted");
 
 const router = express.Router();
 
-router.put("/users/:id", (req,res) => {
+router.put("/:id", (req,res) => {
     //where can the user update their phone number, password
     const {id} = req.params;
     const user = req.body;

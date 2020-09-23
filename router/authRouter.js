@@ -19,19 +19,15 @@ router.post("/register", async (req, res) => {
         .json({ message: "A user with that username already exist" });
     } else {
       const password = await bcrypt.hashSync(req.body.password, 10);
-      const newUser = {
-        id: Date.now(),
-        username: req.body.username,
-        password,
-        phone_number: req.body.phone_number,
-      };
+     
+      const newUser = req.body
 
       userDB
         .addUser(newUser)
         .then((user) => {
           res
             .status(201)
-            .json(newUser);
+            .json(user);
         })
         .catch((err) => {
           console.log(err);

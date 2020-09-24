@@ -56,15 +56,14 @@
     
      
 	PUT update an existing plant by plant id
-  	https://water-my-plants-365.herokuapp.com/api/plants/:id
+  	https://water-my-plants-365.herokuapp.com/api/plants
   
  	 BODY:
  	 {
- 	 "id": 1,
-  	"nickname": "American sheepbush",
+  	 "nickname": "American sheepbush",
  	 "species": "Pentzia incana",
  	 "H2oFrequency": "8 days",
-  	"user_id": 1
+  	 "user_id": 1
   	  }
   
   	

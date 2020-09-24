@@ -20,9 +20,10 @@ router.post("/register", async (req, res) => {
         .json({ message: "A user with that username already exist" });
     } else {
 
-      // const password = await bcrypt.hashSync(req.body.password, 10);
+      const password = await bcrypt.hashSync(req.body.password, 10);
       
       // let credentials = req.body;
+      // const {usernanme, password, phone_number} =req.body
       // const hash = bcryptjs.hashSync(credentials.password, 10);
       // credentials.password = hash;
       
@@ -33,15 +34,15 @@ router.post("/register", async (req, res) => {
       // res.status(201).json({message: 'register success', savedUser, token});
       //})
 
-     const {username,password,phone_number} = req.body
+     const {username,phone_number} = req.body
 
-      const newUser = await userDB.addUser({
-          id,
+      const newUser = {
           username,
-          password: await bcrypt.hashSync(password, 10),
+          password,
           phone_number
-      })
-      res.status(201).json(newUser)
+      }
+
+      //res.status(201).json(newUser)
       
       //   id: req.params.id,
       //   username: req.body.username,
@@ -49,16 +50,16 @@ router.post("/register", async (req, res) => {
       //   phone_number: req.body.phone_number,
       // };
 
-      // userDB
-      //   .addUser(newUser)
-      //   .then((user) => {
-      //     res
-      //       .status(201)
-      //       .json(user);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      userDB
+        .addUser(newUser)
+        .then((user) => {
+          res
+            .status(201)
+            .json(user);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   } catch (err) {
     //console.error(err);

@@ -36,7 +36,7 @@ router.get(
 
 // Get an individual plant by plant id
 
-router.get("/:id"/*,restrict()*/, (req, res, next) => {
+router.get("/:id", (req, res, next) => {
   const { id } = req.params;
 
   Plants.findPlantByID(id)
@@ -107,16 +107,5 @@ router.delete("/:id", (req, res) => {
       res.status(500).json({ error: "could not delelte the plant" });
     });
 });
-
-
-// router.POST('/plants', (req,res) => {
-//     //create plant { id:integer, nickname:string, species:string, h20frequency: ????}
-// })
-// router.PUT('/plants', (req,res) => {
-//     //UPdating plant { id:integer, nickname:string, species:string, h20frequency: ????}
-// })
-// router.DELETE('/plants:id', (req,res) => {
-//     //deleting whichever plant
-// })
 
 module.exports = router;

@@ -28,10 +28,13 @@ router.post("/register", async (req, res) => {
       
       userDB.addUser(credentials)
       .then(savedUser =>{
-      const token = generateToken(savedUser);
+      res.status(201).json(savedUser);
 
-      res.status(201).json({message: 'register success', savedUser, token});
+      // res.status(201).json({message: 'register success', savedUser, token});
       })
+
+      const {username,password,phone_number} = req.body
+
       // const newUser = await userDB.addUser({
       //     id,
       //     username,

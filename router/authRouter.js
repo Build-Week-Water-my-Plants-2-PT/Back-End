@@ -33,7 +33,7 @@ router.post("/register", async (req, res) => {
       // res.status(201).json({message: 'register success', savedUser, token});
       })
 
-      const {username,password,phone_number} = req.body
+     // const {username,password,phone_number} = req.body
 
       // const newUser = await userDB.addUser({
       //     id,

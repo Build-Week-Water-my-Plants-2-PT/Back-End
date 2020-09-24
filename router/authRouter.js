@@ -22,26 +22,26 @@ router.post("/register", async (req, res) => {
 
       // const password = await bcrypt.hashSync(req.body.password, 10);
       
-      let credentials = req.body;
-      const hash = bcryptjs.hashSync(credentials.password, 10);
-      credentials.password = hash;
+      // let credentials = req.body;
+      // const hash = bcryptjs.hashSync(credentials.password, 10);
+      // credentials.password = hash;
       
-      userDB.addUser(credentials)
-      .then(savedUser =>{
-      res.status(201).json(savedUser);
+      // userDB.addUser(credentials)
+      // .then(savedUser =>{
+      // res.status(201).json(savedUser);
 
       // res.status(201).json({message: 'register success', savedUser, token});
+      //})
+
+     const {username,password,phone_number} = req.body
+
+      const newUser = await userDB.addUser({
+          id,
+          username,
+          password: await bcrypt.hashSync(password, 10),
+          phone_number
       })
-
-     // const {username,password,phone_number} = req.body
-
-      // const newUser = await userDB.addUser({
-      //     id,
-      //     username,
-      //     password: await bcrypt.hash(password, 10),
-      //     phone_number
-      // })
-      // res.status(201).json(newUser)
+      res.status(201).json(newUser)
       
       //   id: req.params.id,
       //   username: req.body.username,

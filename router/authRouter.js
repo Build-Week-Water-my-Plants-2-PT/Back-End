@@ -73,7 +73,7 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const { username, password, phone_number } = req.body;
+    const { username, password } = req.body;
 
     if (!username || !password) {
       //checking if username and password is valid
@@ -84,7 +84,7 @@ router.post("/login", async (req, res) => {
 
     const user = await userDB.findBy({ username }).first();
     //console.log(user);
-    const validPassword = await bcrypt.compare(password, user.password);
+    const validPassword = await bcrypt.compareSync(password, user.password);
 
     if (!validPassword) {
       //validating password

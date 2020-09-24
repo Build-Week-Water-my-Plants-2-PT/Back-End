@@ -9,7 +9,7 @@ const authRouter = require("../router/authRouter");
 const plantsRouter = require("../router/plantsRouter");
 const userRouter = require("../router/userRouter");
 
-const { restrict } = require("../middleware/restricted");
+const restrict = require("../middleware/restricted");
 const cookieParser = require("cookie-parser");
 
 server.use(helmet());
@@ -28,9 +28,9 @@ server.use(express.json());
 server.use(cookieParser());
 
 server.use("/api/auth", authRouter);
-//server.use('/api/plants', restrict(), plantsRouter);
-server.use("/api/plants", plantsRouter);
-server.use("/users", userRouter);
+server.use('/api/plants', restrict(), plantsRouter);
+//server.use("/api/plants", plantsRouter);
+server.use("/users", restrict(), userRouter);
 
 server.get("/", (req, res) => {
   res.status(200).json({ message: "Welcome to Water My Plants" });

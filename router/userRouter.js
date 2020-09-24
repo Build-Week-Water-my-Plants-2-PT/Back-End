@@ -19,7 +19,26 @@ router.put("/:id", (req,res) => {
         res.status(500).json({error:'Unable to update user information'});
     })
 });
+
+router.get('/',(req, res)=>{
+    Users.find()
+    .then(user=>{
+        res.status(200).json(user)
+    })
+    .catch(err=>{
+        res.status(500).json({error: 'list of user could not retrive'})
+    })
+})
   
+router.get('/:id', (req,res) => {
+    Users.findByID()
+    .then(user=>{
+        res.status(200).json(user);
+    })
+    .catch(err=>{
+        res.status(500).json({error: 'user with this id could not retrive'})
+    })
+})
   
   module.exports = router;
 

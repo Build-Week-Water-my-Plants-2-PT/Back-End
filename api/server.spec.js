@@ -30,8 +30,8 @@ describe('server.js', () => {
       const users = await db('users');
       expect(users).toHaveLength(0);
       await Users.addUser({
-        username: 'student1',
-        password: 'password1',
+        username: 'student71',
+        password: 'password71',
         phone_number: '1234567891'
       })
       const newUsers = await db('users');
@@ -41,16 +41,16 @@ describe('server.js', () => {
       const users = await db('users');
       expect(users).toHaveLength(0);
       await Users.addUser({
-        username: 'student2',
-        password: 'password2',
+        username: 'student72',
+        password: 'password72',
         phone_number: '1234567892'
       })
     })
     it('Status Code 201', () => {
       return request(server).post('/api/auth/register')
         .send({
-          username: 'student3',
-          password: 'password3',
+          username: 'student73',
+          password: 'password73',
           phone_number: '1234567893'
         })
         .expect(201);
@@ -70,21 +70,32 @@ describe('server.js', () => {
       res = await request(server)
         .post('/api/auth/register')
         .send({
-          username: 'student1',
-          password: 'password1',
+          username: 'student71',
+          password: 'password71',
           phone_number: '1234567891'
         });
       expect(res.status).toEqual(201);
       res = await request(server)
         .post('/api/auth/login')
         .send({
-          username: 'student1',
-          password: 'password1'
+          username: 'student71',
+          password: 'password71'
         });
       expect(res.status).toEqual(200);
     })
   })
   
+  //GET USER BY ID
+  // describe('GET /users/:id', ()=>{
+  //   it('404',()=>{
+  //     return request(server).get('api/users/1')
+  //     .then(res=>{
+  //       expect(res.status).toBe(404);
+  //     })
+  //   })
+  //   it('')
+  // })
+
   //GET PLANTS
   
   describe('GET /api/plants', () => {
@@ -104,16 +115,16 @@ describe('server.js', () => {
       res = await request(server)
         .post('/api/auth/register')
         .send({
-          username: 'student1',
-          password: 'password1',
+          username: 'student71',
+          password: 'password71',
           phone_number: '1234567891'
         });
       expect(res.status).toEqual(201);
       res = await request(server)
         .post('/api/auth/login')
         .send({
-          username: 'student1',
-          password: 'password1',
+          username: 'student71',
+          password: 'password71',
           phone_number: '1234567891'
         });
       expect(res.status).toEqual(200);

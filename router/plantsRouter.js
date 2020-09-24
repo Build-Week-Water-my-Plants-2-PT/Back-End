@@ -22,7 +22,6 @@ router.get('/',  (req, res) => {
 
 router.get(
   "/users/:id/plants",
-  validateUserId(),
   async (req, res, next) => {
     try {
       const plants = await Plants.findPlantsByUserID(req.params.id);

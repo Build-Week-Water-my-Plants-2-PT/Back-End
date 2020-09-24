@@ -20,10 +20,11 @@ router.put("/:id", (req,res) => {
     })
 });
 
+// GET all the users
 router.get('/',(req, res)=>{
     Users.find()
     .then(user=>{
-        res.status(200).json(user)
+        res.status(200).json(user);
     })
     .catch(err=>{
         res.status(500).json({error: 'list of user could not retrive'})

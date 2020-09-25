@@ -28,9 +28,9 @@ server.use(express.json());
 
 
 server.use("/api/auth", authRouter);
-server.use('/api/plants', restrict(), plantsRouter);
+server.use('/api/plants', plantsRouter);
 //server.use("/api/plants", plantsRouter);
-server.use("/users", restrict(), userRouter);
+server.use("/users",  userRouter);
 
 server.get("/", (req, res) => {
   res.status(200).json({ message: "Welcome to Water My Plants" });

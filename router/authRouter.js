@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const JWT = require("jsonwebtoken");
 const userDB = require("../models/userModels");
+const createToken = require("../middleware/createToken");
 
 const router = express.Router();
 
@@ -90,11 +91,10 @@ router.post("/login", async (req, res) => {
       //validating password
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    const token = JWT.sign({ userID: user.id }, process.env.SECRET);
-    res.cookie("token", token);
-    res.json({
+    const token = createToken(user);
+    res.status(200).json({
       user,
-      token: token,
+      token,
     });
   } catch (err) {
     console.error(err);

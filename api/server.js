@@ -10,7 +10,7 @@ const plantsRouter = require("../router/plantsRouter");
 const userRouter = require("../router/userRouter");
 
 const restrict = require("../middleware/restricted");
-const cookieParser = require("cookie-parser");
+
 
 server.use(helmet());
 const whitelist = [
@@ -25,7 +25,7 @@ server.use(
 );
 
 server.use(express.json());
-server.use(cookieParser());
+
 
 server.use("/api/auth", authRouter);
 server.use('/api/plants', restrict(), plantsRouter);

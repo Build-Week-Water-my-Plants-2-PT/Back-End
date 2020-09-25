@@ -4,7 +4,7 @@ const Users = require("../models/userModels");
 const db = require("../data/config");
 const { intersect } = require("../data/config");
 const supertest = require("supertest");
-const restict = require("../middleware/restricted")
+const restrict = require("../middleware/restricted")
 
 
 
@@ -23,7 +23,7 @@ describe('server.js', () => {
     expect(res.body.message).toMatch("Welcome to Water My Plants")
   })
 
-  //  REGISTER TESTING
+    //  REGISTER TESTING
 
   describe('POST /api/auth/register', () => {
     //when we describe something, ‘it’ does something. 
@@ -58,7 +58,7 @@ describe('server.js', () => {
     })
   })
 
-  //LOGIN TESTING
+    //LOGIN TESTING
   
   describe('POST /api/auth/login', () => {
     it('return JSON', async () => {
@@ -85,56 +85,6 @@ describe('server.js', () => {
       expect(res.status).toEqual(200);
     })
   })
-  
-    //GET PLANTS
-  
-    describe('GET /plants', () => {
-      it('404', () => {
-        return request(server).get('/api/plants')
-          .then(res => {
-            expect(res.status).toBe(404);
-          })
-      })
-      it('return plants in JSON format', async () => {
-        return request(server).get('/api/plants')
-          .then(res => {
-            expect(res.type).toMatch(/json/i)
-          })
-      })
-      it('list of plants on successful login with token', async () => {
-        res = await request(server)
-          .post('/api/auth/register')
-          .send({
-            username: 'student71',
-            password: 'password71',
-            phone_number: '1234567891'
-          });
-        expect(res.status).toEqual(201);
-        res = await request(server)
-          .post('/api/auth/login')
-          .send({
-            username: 'student1',
-            password: 'password1',
-            phone_number: '1234567891'
-          });
-        expect(res.status).toEqual(200);
-        const token = res.body.token;
-      expect(token.length).toBeGreaterThan(20);
-      res = await request(server)
-        .get('/api/plants')
-        .set({ authorization: token, Accept: 'application/json' });
-      expect(res.body).toBeInstanceOf(Object);
-      expect(res.status).toBe(200);
-
-        // const token = JWT.sign({ userID: user.id }, process.env.SECRET);
-        // res.cookie("token", token);
-        // res.json({
-        //   user,
-        //   token: token,
-        // });
-     
-      })
-    })
 
     // TESTING USER MODEL
     describe('users model', function () {
@@ -187,7 +137,129 @@ describe('server.js', () => {
           expect(newUser[0]).toHaveProperty('id', 1);
         })
       })
+    })   
+
+
     
-  })
 
 })
+
+        // GET PLANTS
+  
+        describe('GET /api/plants', () => {
+    
+          it('return plants in JSON format', async () => {
+            return request(server).get('/api/plants')
+              .then(res => {
+                expect(res.type).toMatch(/json/i)
+              })
+          })
+          it('list of plants on successful login with token', async () => {
+            res = await request(server)
+              .post('/api/auth/register')
+              .send({
+                username: 'student81',
+                password: 'password81',
+                phone_number: '1234567891'
+              });
+            expect(res.status).toEqual(201);
+            res = await request(server)
+              .post('/api/auth/login')
+              .send({
+                username: 'student81',
+                password: 'password81'
+                        });
+            expect(res.status).toEqual(200);
+            const token = res.body.token;
+          expect(token.length).toBeGreaterThan(20);
+          res = await request(server)
+            .get('/api/plants')
+            .set({ authorization: token, Accept: 'application/json' });
+          expect(res.body).toBeInstanceOf(Object);
+          expect(res.status).toBe(200);
+    
+            });
+         
+          })
+
+// describe("intergration tests for plants", () => {
+
+
+  
+
+        // returns list of users
+        // it("GET /users", async () => { 
+        //   const res = await supertest(server).get("/users")
+        //   expect(res.statusCode).toBe(200);
+        //   expect(res.body).toBeDefined();
+        // });
+    
+
+  
+
+// })
+
+
+
+
+    // })
+
+ 
+
+
+
+ // describe("intergration tests for endpoints", async()=>{
+  //     // testing for register endpoint
+  //     it("POST /api/auth/register", async()=>{
+  //       const res = await supertest(server).post("/api/auth/register").send({
+  //         username:"student71",
+  //         password:"password71",
+  //         phone_number:1234567891
+  //       });
+  //       expect(res.status).toBe(201);
+  //       expect(res.body).toBeDefined();
+  //   });
+
+  //       // returns list of users
+  //       it("GET /users", async () => { 
+  //         const res = await supertest(server).get("/users")
+  //         expect(res.statusCode).toBe(200);
+  //         expect(res.body).toBeDefined();
+  //       });
+    
+
+    // testing login 
+    // it("POST /api/auth/login", async()=>{
+    //   const res = await supertest(server).post("/api/auth/login").send({
+    //     username:"student71",
+    //     password:"password71"
+    //   });
+    //   expect(res.status).toBe(200);
+    // })
+
+
+          // testing get plants by user id
+    // it("POST /api/auth/login & GET api/plants/users/:id/plants", async()=>{
+
+    //   const res1 = await supertest (server).post("/api/auth/login").send({
+    //     username:"student71",
+    //     password:"password71"
+    //   })
+
+    //   const res2 = await supertest(server).get("api/plants/users/1/plants").set("authorization", res1.body.token)
+
+    //   expect(res2.status.toBe(200)
+    //   )}
+
+    // })
+
+    //   // testing update plants by id
+    //   // it("POST /api/auth/login & PUT api/plants/:id", async()=>{
+    //   //   const res1 = await supertest(server).post("/plants")
+    //   //   .set()
+    //   // })
+  // })
+
+
+
+// })

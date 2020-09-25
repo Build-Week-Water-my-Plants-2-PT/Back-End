@@ -8,7 +8,7 @@ const validatePlantData = require("../middleware/validatePlantData")
 const db = require("../data/config")
 
 // Get all the plants
-router.get('/',  (req, res) => {
+router.get('/', restrict(), (req, res) => {
   Plants.findPlants()
     .then(plants => {
       res.status(200).json(plants);
@@ -21,7 +21,7 @@ router.get('/',  (req, res) => {
 // Get All of a specific users plants
 
 router.get(
-  "/users/:id/plants",
+  "/users/:id/plants", 
   async (req, res, next) => {
     try {
       const plants = await Plants.findPlantsByUserID(req.params.id);

@@ -10,7 +10,7 @@ function restrict() {
   
       try {
         // token is coming from the client's cookie jar, in the "Cookie" header
-        const token = req.cookies.token
+        const token = req.headers.authorization
         //console.log(token)
         if (!token) {
           return res.status(401).json(authError)
